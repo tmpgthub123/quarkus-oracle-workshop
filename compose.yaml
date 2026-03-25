@@ -1,0 +1,32 @@
+# Beginner-friendly local Oracle Database Free setup for this workshop.
+# Assumption:
+# - Docker host exposes Oracle listener on localhost:1521
+# - Workshop app expects DB service name = FREEPDB1 by default.
+#
+# Notes:
+# - First startup can take 2-4 minutes while the container initializes Oracle files.
+# - For a quick demo restart, the data lives in the named volume `oracle-free-data`.
+services:
+  oracle-free:
+    # Pin the image tag to avoid unexpected behavior on workshop day.
+    # Override with ORACLE_IMAGE if your environment needs a different patch level.
+    image: ${ORACLE_IMAGE:-container-registry.oracle.com/database/free:23.5.0.0}
+    container_name: oracle-free-demo
+    restart: unless-stopped
+    ports:
+      - "1521:1521"
+    environment:
+      # Password for built-in system users (SYS/SYSTEM).
+      ORACLE_PWD: ${ORACLE_PWD:-demo_password}
+
+      # PDB name must match the Quarkus JDBC URL host/SERVICE part.
+      ORACLE_PDB: ${ORACLE_PDB:-FREEPDB1}
+      ORACLE_SID: ${ORACLE_SID:-FREE}
+      ORACLE_CHARACTERSET: AL32UTF8
+
+    volumes:
+      # Persistent Oracle data folder (do not lose created tables between restarts).
+      - oracle-free-data:/opt/oracle/oradata
+
+volumes:
+  oracle-free-data:

@@ -1,0 +1,9 @@
+### Create a new book
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "The Phoenix Project",
+  "author": "Gene Kim",
+  "isbn": "978-0988262591"
+}

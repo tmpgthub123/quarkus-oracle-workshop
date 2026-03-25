@@ -1,0 +1,3 @@
+### List all books
+GET http://localhost:8080/api/books
+Accept: application/json

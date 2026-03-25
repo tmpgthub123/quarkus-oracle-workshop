@@ -1,0 +1,6 @@
+### TODO: Workshop task 1
+### Add DELETE /api/books/{id}
+### Expected: 204 on success, 404 if not found
+###
+### Example:
+DELETE http://localhost:8080/api/books/1

@@ -1,0 +1,5 @@
+### TODO: Workshop task 3
+### Add GET /api/books/search?author=...
+### Example query by author (case-insensitive):
+GET http://localhost:8080/api/books/search?author=Fowler
+Accept: application/json

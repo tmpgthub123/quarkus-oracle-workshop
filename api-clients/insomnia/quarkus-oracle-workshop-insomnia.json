@@ -1,0 +1,97 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-03-24T00:00:00.000Z",
+  "__export_source": "quarkus-oracle-workshop",
+  "resources": [
+    {
+      "_id": "wrk_quarkus_oracle_workshop",
+      "_type": "workspace",
+      "name": "Quarkus Oracle Workshop",
+      "description": "Beginner workshop client for /api/books endpoints.",
+      "scope": "collection",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "env_quarkus_oracle_workshop",
+      "_type": "environment",
+      "name": "Workshop Environment",
+      "parentId": "wrk_quarkus_oracle_workshop",
+      "data": {
+        "baseUrl": "http://localhost:8080",
+        "bookId": "1"
+      },
+      "data_property_order": {
+        "&": [
+          "baseUrl",
+          "bookId"
+        ]
+      },
+      "created": 1732473600000,
+      "modified": 1732473600000,
+      "isPrivate": false
+    },
+    {
+      "_id": "fld_books",
+      "_type": "request_group",
+      "name": "Book Endpoints (REST Intro)",
+      "description": "Simple request/response intro for the workshop.",
+      "parentId": "wrk_quarkus_oracle_workshop",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "req_books_list",
+      "_type": "request",
+      "parentId": "fld_books",
+      "name": "GET /api/books",
+      "description": "List all books.",
+      "url": "{{ _.baseUrl }}/api/books",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {}
+    },
+    {
+      "_id": "req_books_get_by_id",
+      "_type": "request",
+      "parentId": "fld_books",
+      "name": "GET /api/books/{id}",
+      "description": "Get a single book by path parameter id.",
+      "url": "{{ _.baseUrl }}/api/books/{{ _.bookId }}",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_books_post",
+      "_type": "request",
+      "parentId": "fld_books",
+      "name": "POST /api/books",
+      "description": "Create a book row.",
+      "url": "{{ _.baseUrl }}/api/books",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"The Phoenix Project\",\n  \"author\": \"Gene Kim\",\n  \"isbn\": \"978-0988262591\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {}
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "info": {
+    "_postman_id": "quarkus-oracle-workshop-kreya",
+    "name": "Quarkus Oracle Workshop",
+    "description": "Collection for the workshop: Book endpoints only.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Book Endpoints (REST Intro)",
+      "description": "Simple request/response introduction for the workshop.",
+      "item": [
+        {
+          "name": "GET /api/books",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8080/api/books"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/books/{id}",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/books/1"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/books",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Phoenix Project\",\n  \"author\": \"Gene Kim\",\n  \"isbn\": \"978-0988262591\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8080/api/books"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "id": "v_baseUrl",
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string",
+      "description": "Common workshop API base URL"
+    },
+    {
+      "id": "v_bookId",
+      "key": "bookId",
+      "value": "1",
+      "type": "string",
+      "description": "Default bookId for GET /api/books/{id}"
+    }
+  ]
+}

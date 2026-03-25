@@ -1,0 +1,17 @@
+{
+  "details": {
+    "endpoint": "http://localhost:8080",
+    "path": "api/books/1",
+    "method": "GET",
+    "headers": [],
+    "queryParams": []
+  },
+  "requests": [
+    {
+      "contentType": "none"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "rest",
+  "typeHint": "GET"
+}

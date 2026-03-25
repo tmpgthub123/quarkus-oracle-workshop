@@ -1,0 +1,19 @@
+### TODO: Workshop Task 1
+### Implement DELETE /api/books/{id} in the service/resource layer
+DELETE http://localhost:8080/api/books/1
+
+### TODO: Workshop Task 2
+### Add `category` to POST /api/books payload and model mapping
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "Category-aware example",
+  "author": "Workshop Author",
+  "isbn": "978-9999999999"
+}
+
+### TODO: Workshop Task 3
+### Implement GET /api/books/search?author=...
+GET http://localhost:8080/api/books/search?author=Martin%20Fowler
+Accept: application/json
