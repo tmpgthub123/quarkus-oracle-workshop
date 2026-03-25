@@ -42,6 +42,15 @@
       "modified": 1732473600000
     },
     {
+      "_id": "fld_books_grpc",
+      "_type": "request_group",
+      "name": "Book Endpoints (gRPC via REST wrapper)",
+      "description": "Small helper endpoint that calls gRPC method `GetBookById`.",
+      "parentId": "wrk_quarkus_oracle_workshop",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
       "_id": "req_books_list",
       "_type": "request",
       "parentId": "fld_books",
@@ -88,6 +97,24 @@
       "headers": [
         {
           "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {}
+    },
+    {
+      "_id": "req_books_grpc_get_by_id",
+      "_type": "request",
+      "parentId": "fld_books_grpc",
+      "name": "GET /api/books/grpc/{id}",
+      "description": "REST wrapper that invokes the gRPC GetBookById method internally.",
+      "url": "{{ _.baseUrl }}/api/books/grpc/{{ _.bookId }}",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
           "value": "application/json"
         }
       ],

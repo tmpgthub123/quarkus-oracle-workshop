@@ -56,6 +56,26 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Book Endpoints (gRPC via REST wrapper)",
+      "description": "Optional quick gRPC demo call through a small REST wrapper.",
+      "item": [
+        {
+          "name": "GET /api/books/grpc/{id}",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/api/books/grpc/1",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ]
+          },
+          "response": []
+        }
+      ]
     }
   ],
   "variable": [

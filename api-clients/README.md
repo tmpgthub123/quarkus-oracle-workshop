@@ -10,6 +10,8 @@ Both files contain these requests (matching current starter Quarkus endpoints):
 - `GET /api/books`
 - `GET /api/books/{id}`
 - `POST /api/books`
+- `GET /api/books/grpc/{id}` (REST wrapper around gRPC demo, safe for workshop quick test)
+- `BookService.GetBookById` (direct gRPC request reference)
 
 Shared variable (Insomnia uses this):
 - `baseUrl = http://localhost:8080`
@@ -18,6 +20,23 @@ For the starter workshop tasks, see [ZADACI.md](../ZADACI.md):
 - Task 1: `DELETE /api/books/{id}`
 - Task 2: add `category` in Book flow
 - Task 3: `GET /api/books/search?author=...`
+- gRPC demo request payload (for direct gRPC clients):
+  - Service: `BookService`
+  - Method: `GetBookById`
+  - Request body:
+
+```json
+{
+  "id": 1
+}
+```
+
+- Direct request files:
+  - REST wrapper gRPC helper:
+    - `api-clients/kreya/Quarkus Oracle Workshop/Book Endpoints (gRPC via REST wrapper)/GET _api_books_grpc_{id}.krop`
+  - true direct gRPC (not REST) reference:
+    - `api-clients/kreya/Quarkus Oracle Workshop/Book Endpoints (direct gRPC)/GetBookById.krop`
+    - `api-clients/insomnia/GRPC_DIRECT_GETBOOKBYID.json` (manual import reference, not ready-made import)
 
 ## Import to Insomnia
 

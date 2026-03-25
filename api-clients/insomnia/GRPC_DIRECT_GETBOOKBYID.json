@@ -1,0 +1,17 @@
+{
+  "kind": "grpc-workshop-helper",
+  "tool": "Insomnia (manual setup)",
+  "transport": "grpc",
+  "server": "localhost:9000",
+  "proto": "src/main/proto/book_service.proto",
+  "package": "com.enlight.demo.book",
+  "service": "BookService",
+  "method": "GetBookById",
+  "request": {
+    "id": 1
+  },
+  "notes": [
+    "Insomnia gRPC request is created manually in the client UI.",
+    "Use this file only as a quick setup reference (service/method/host/body)."
+  ]
+}

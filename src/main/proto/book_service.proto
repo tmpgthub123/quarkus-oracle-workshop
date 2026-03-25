@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.enlight.demo.book;
+
+option java_package = "com.enlight.demo.book.grpc";
+option java_outer_classname = "BookServiceProto";
+option java_multiple_files = true;
+
+service BookService {
+    // Simple unary method used in workshop as gRPC alternative to REST GET /api/books/{id}.
+    rpc GetBookById (GetBookByIdRequest) returns (BookReply);
+}
+
+message GetBookByIdRequest {
+    // The book ID in DB (same id as REST /api/books/{id}).
+    int64 id = 1;
+}
+
+message BookReply {
+    int64 id = 1;
+    string title = 2;
+    string author = 3;
+    string isbn = 4;
+}

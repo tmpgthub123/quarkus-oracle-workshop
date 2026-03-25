@@ -191,3 +191,18 @@ In DBVisualizer, make sure all three are set explicitly:
 - Username/password: `system` / `demo_password`
 
 If DBVisualizer keeps asking for credentials on each connect, remove/recreate that connection and enter the password again (it can keep stale cached credentials).
+
+## Bonus gRPC demo (small workshop addition)
+
+This project still keeps **REST as the main API**.
+To keep the workshop flow simple, gRPC is added only as a short comparison demo that uses the same `Book` concept.
+
+Example overview:
+
+- `BookService` in `src/main/proto/book_service.proto`
+- gRPC unary method: `GetBookById`
+- gRPC implementation: `src/main/java/com/enlight/demo/book/BookGrpcService.java`
+- Small REST wrapper sample for easy workshop comparison: `GET /api/books/grpc/{id}` in
+  `src/main/java/com/enlight/demo/book/BookGrpcResource.java`
+- REST app still runs on port `8080`, gRPC demo on port `9000`
+- Full walkthrough (what is gRPC, how .proto works, how to test): `GRPC_BOOK_DEMO.md`
