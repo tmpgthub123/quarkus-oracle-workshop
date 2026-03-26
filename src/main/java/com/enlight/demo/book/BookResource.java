@@ -5,7 +5,9 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.inject.Inject;
@@ -40,14 +42,25 @@ public class BookResource {
         return Response.status(Response.Status.CREATED).entity(created).build();
     }
 
-    // TODO: Workshop task 1
-    // Add DELETE /api/books/{id} endpoint.
-    // Return:
-    // - 204 when deleted
-    // - 404 when not found
-    // and call service.deleteBook(id).
+    /**
+     * Deletes one book by ID.
+     * - 204 when the row is deleted
+     * - 404 when the book is not found
+     */
+    @DELETE
+    @Path("/{id:\\d+}")
+    public Response deleteById(@PathParam("id") Long id) {
+        service.deleteBook(id);
+        return Response.noContent().build();
+    }
 
-    // TODO: Workshop task 3
-    // Add GET /api/books/search?author=... endpoint.
-    // Use query param `author`, then return service.searchBooksByAuthor(author).
+    /**
+     * Searches books by author.
+     * Example: /api/books/search?author=Bloch
+     */
+    @GET
+    @Path("/search")
+    public List<Book> searchByAuthor(@QueryParam("author") String author) {
+        return service.searchBooksByAuthor(author);
+    }
 }

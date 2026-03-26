@@ -1,5 +1,4 @@
-### TODO: Workshop task 3
-### Add GET /api/books/search?author=...
-### Example query by author (case-insensitive):
+### Search books by author (case-insensitive contains)
 GET http://localhost:8080/api/books/search?author=Fowler
 Accept: application/json
+

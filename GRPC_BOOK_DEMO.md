@@ -44,7 +44,7 @@ Tok je vrlo jednostavan:
 
 1. Klijent pošalje `id` u `GetBookByIdRequest`.
 2. gRPC servis u serveru pozove postojeći `BookService.getBookById(id)`.
-3. Ako knjiga postoji, vraća `BookReply` (`id`, `title`, `author`, `isbn`).
+3. Ako knjiga postoji, vraća `BookReply` (`id`, `title`, `author`, `isbn`, `category`).
 4. Ako ne postoji, vraća se gRPC error `NOT_FOUND`.
 
 ## Važne datoteke
@@ -56,20 +56,21 @@ Tok je vrlo jednostavan:
   - REST: `8080`
   - gRPC: `9000`
 
-## Kako testirati iz Kreya / Insomnia
+## Kako testirati iz Insomnia
 
 Postoje dva jednostavna načina za test:
 
 - Direktno gRPC (preporučeno za bonus deo), koristeći `localhost:9000`.
-  - U Kreya možeš importovati/kreirati request iz:
-    - `api-clients/kreya/Quarkus Oracle Workshop/Book Endpoints (direct gRPC)/GetBookById.krop`
-  - Za Insomnia je u ovoj verziji helper fajl:
-    - `api-clients/insomnia/GRPC_DIRECT_GETBOOKBYID.json`
-    (koristi ga kao ručni šablon: server, service i payload),
-- Kratki REST wrapper endpoint (ako želite da testirate kroz isti alat koji već znate):
+  - U glavnoj Insomnia kolekciji postoji grupa:
+    - `Book Endpoints (direct gRPC)`
+  - Request je već povezan na prenosivi proto tree koji posle import-a daje relativnu putanju:
+    - `src/main/proto/book_service.proto`
+  - Kao dodatni plain reference fajl ostaje:
+    - `api-clients/grpc/GRPC_DIRECT_GETBOOKBYID.md`
+- Kratki REST wrapper endpoint:
   `GET /api/books/grpc/{id}`.
 
-Ako već koristiš REST klijent (Insomnia/Kreya), možeš prvo koristiti wrapper endpoint:
+Ako već koristiš glavnu Insomnia kolekciju, možeš prvo koristiti wrapper endpoint:
 
 - Host: `localhost:8080`
 - Path: `/api/books/grpc/1`
@@ -95,6 +96,6 @@ Ako vrati grešku, očekivana je:
 
 ## Koji je tok poziva?
 
-`Kreya/Insomnia -> gRPC channel (localhost:9000) -> BookService.GetBookById -> BookGrpcService -> BookService (REST/domain layer) -> BookRepository -> Oracle`
+`Insomnia -> gRPC channel (localhost:9000) -> BookService.GetBookById -> BookGrpcService -> BookService (REST/domain layer) -> BookRepository -> Oracle`
 
 Ovaj tok pomaže da vidite istu logiku, samo “u drugom stilu komunikacije”.

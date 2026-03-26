@@ -43,7 +43,8 @@ public class BookGrpcResource {
                     reply.getId(),
                     reply.getTitle(),
                     reply.getAuthor(),
-                    reply.getIsbn()
+                    reply.getIsbn(),
+                    reply.getCategory()
             );
         } catch (StatusRuntimeException error) {
             if (error.getStatus().getCode() == Status.NOT_FOUND.getCode()) {

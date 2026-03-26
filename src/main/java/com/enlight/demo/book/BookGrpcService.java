@@ -47,6 +47,7 @@ public class BookGrpcService extends BookServiceGrpc.BookServiceImplBase {
                 .setTitle(book.getTitle())
                 .setAuthor(book.getAuthor())
                 .setIsbn(book.getIsbn())
+                .setCategory(book.getCategory() == null ? "" : book.getCategory())
                 .build();
     }
 }

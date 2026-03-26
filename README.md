@@ -1,6 +1,6 @@
 # Quarkus Book-first Oracle Workshop Demo
 
-This is a beginner-friendly **starter** workshop project for colleagues who already know Oracle and want to learn how a Java backend calls Oracle from REST APIs with Quarkus.
+This is a beginner-friendly training project for colleagues who already know Oracle and want to learn how a Java backend calls Oracle from REST APIs with Quarkus.
 
 The project focuses on:
 - Understanding REST + JSON request/response
@@ -21,8 +21,39 @@ The project focuses on:
 - IntelliJ IDEA Community
 - Maven (`./mvnw` wrapper is included)
 - Oracle Database Free (Docker)
-- Kreya or Insomnia
+- Insomnia
 - (Optional for DB demo) SQL client for running scripts under `sql/`
+
+## IntelliJ quick setup (Java + Maven)
+
+If IntelliJ opens the project without the correct JDK or Maven setup, do this once before running the app:
+
+1. Open `File -> Project Structure...`
+2. In `Project`, set `SDK` to your installed Java 21 and leave `Language level` as `SDK default`.
+3. Open `File -> Settings...`
+4. Search for `Maven` and open `Build, Execution, Deployment -> Build Tools -> Maven`.
+5. Set `Maven home path` to `Use Maven wrapper`.
+6. Enable `Use settings from .mvn/maven.config`.
+
+### Java setup
+
+Open `Project Structure` from the `File` menu:
+
+![Open Project Structure](docs/img1.png)
+
+Set the project SDK to Java 21:
+
+![Set Java 21 SDK](docs/img2.png)
+
+### Maven setup
+
+Open `Settings` from the `File` menu:
+
+![Open Settings](docs/img3.png)
+
+Set Maven to use the wrapper:
+
+![Use Maven wrapper](docs/img4.png)
 
 ## How to run
 
@@ -81,6 +112,8 @@ Config:
 - `GET /api/books` – list books
 - `GET /api/books/{id}` – get one book by id
 - `POST /api/books` – insert one row into `BOOK` and return generated `id`
+- `DELETE /api/books/{id}` – delete one book row
+- `GET /api/books/search?author=...` – search books by author
 
 The Book demo uses the real `BOOK` table in Oracle through plain JDBC, not an in-memory list.
 
@@ -97,16 +130,16 @@ curl -X GET http://localhost:8080/api/books/1
 ```bash
 curl -X POST http://localhost:8080/api/books \
   -H "Content-Type: application/json" \
-  -d '{"title":"Effective Java","author":"Joshua Bloch","isbn":"9780134685991"}'
+  -d '{"title":"Effective Java","author":"Joshua Bloch","isbn":"9780134685991","category":"Java"}'
 ```
 
-## Tasks
+```bash
+curl -X GET "http://localhost:8080/api/books/search?author=Bloch"
+```
 
-Starter participants tasks are in [ZADACI.md](./ZADACI.md) and include:
-
-- `DELETE /api/books/{id}`
-- `category` field in Book flow
-- `GET /api/books/search?author=...`
+```bash
+curl -X DELETE http://localhost:8080/api/books/1
+```
 
 ## Folder structure
 
@@ -117,7 +150,7 @@ Starter participants tasks are in [ZADACI.md](./ZADACI.md) and include:
 - `src/main/resources/application.properties` – datasource and demo settings
 - `sql/` – manual setup SQL for the workshop (`schema.sql`, `data.sql`)
 - `src/main/resources/sql/` – startup bootstrap scripts for `BOOK` (`01_book_schema.sql`, `02_book_data.sql`)
-- `requests/` – ready API samples for Kreya/Insomnia
+- `requests/` – ready API samples for manual HTTP checks
 
 ## Workshop flow suggestion
 
@@ -136,9 +169,9 @@ Starter participants tasks are in [ZADACI.md](./ZADACI.md) and include:
 
 ## Testing note
 
-This starter version does not include project-specific test classes. Use manual request checks from `requests/` and your HTTP client during the workshop.
+This workshop repo does not include project-specific test classes. Use manual request checks from `requests/` and your HTTP client during the workshop.
 
-Before zipping/sharing the project, remove build artifacts (`target/`) so learners get a clean starter repo.
+Before zipping/sharing the project, remove build artifacts (`target/`) so learners get a clean workshop repo.
 
 # Docker compose
 docker login container-registry.oracle.com  # first time only, if required
@@ -194,8 +227,7 @@ If DBVisualizer keeps asking for credentials on each connect, remove/recreate th
 
 ## Bonus gRPC demo (small workshop addition)
 
-This project still keeps **REST as the main API**.
-To keep the workshop flow simple, gRPC is added only as a short comparison demo that uses the same `Book` concept.
+This project keeps **REST as the main API**, and also includes a small gRPC example around the same `Book` domain.
 
 Example overview:
 
@@ -205,4 +237,7 @@ Example overview:
 - Small REST wrapper sample for easy workshop comparison: `GET /api/books/grpc/{id}` in
   `src/main/java/com/enlight/demo/book/BookGrpcResource.java`
 - REST app still runs on port `8080`, gRPC demo on port `9000`
+- Insomnia collection includes a direct gRPC request with portable proto tree resolving to
+  `src/main/proto/book_service.proto` under
+  `api-clients/insomnia/quarkus-oracle-workshop-insomnia.json`
 - Full walkthrough (what is gRPC, how .proto works, how to test): `GRPC_BOOK_DEMO.md`

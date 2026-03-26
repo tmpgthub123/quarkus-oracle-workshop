@@ -20,11 +20,13 @@
       "parentId": "wrk_quarkus_oracle_workshop",
       "data": {
         "baseUrl": "http://localhost:8080",
+        "grpcUrl": "localhost:9000",
         "bookId": "1"
       },
       "data_property_order": {
         "&": [
           "baseUrl",
+          "grpcUrl",
           "bookId"
         ]
       },
@@ -47,6 +49,56 @@
       "name": "Book Endpoints (gRPC via REST wrapper)",
       "description": "Small helper endpoint that calls gRPC method `GetBookById`.",
       "parentId": "wrk_quarkus_oracle_workshop",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "fld_books_grpc_direct",
+      "_type": "request_group",
+      "name": "Book Endpoints (direct gRPC)",
+      "description": "Direct gRPC request wired to portable proto tree under src/main/proto.",
+      "parentId": "wrk_quarkus_oracle_workshop",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "pd_proto_root",
+      "_type": "proto_directory",
+      "parentId": "wrk_quarkus_oracle_workshop",
+      "name": "project-root",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "pd_proto_src",
+      "_type": "proto_directory",
+      "parentId": "pd_proto_root",
+      "name": "src",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "pd_proto_main",
+      "_type": "proto_directory",
+      "parentId": "pd_proto_src",
+      "name": "main",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "pd_proto_proto",
+      "_type": "proto_directory",
+      "parentId": "pd_proto_main",
+      "name": "proto",
+      "created": 1732473600000,
+      "modified": 1732473600000
+    },
+    {
+      "_id": "pf_book_service_proto",
+      "_type": "proto_file",
+      "parentId": "pd_proto_proto",
+      "name": "book_service.proto",
+      "protoText": "syntax = \"proto3\";\n\npackage com.enlight.demo.book;\n\noption java_package = \"com.enlight.demo.book.grpc\";\noption java_outer_classname = \"BookServiceProto\";\noption java_multiple_files = true;\n\nservice BookService {\n    // Simple unary method used in workshop as gRPC alternative to REST GET /api/books/{id}.\n    rpc GetBookById (GetBookByIdRequest) returns (BookReply);\n}\n\nmessage GetBookByIdRequest {\n    // The book ID in DB (same id as REST /api/books/{id}).\n    int64 id = 1;\n}\n\nmessage BookReply {\n    int64 id = 1;\n    string title = 2;\n    string author = 3;\n    string isbn = 4;\n    string category = 5;\n}\n",
       "created": 1732473600000,
       "modified": 1732473600000
     },
@@ -91,12 +143,43 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"title\": \"The Phoenix Project\",\n  \"author\": \"Gene Kim\",\n  \"isbn\": \"978-0988262591\"\n}"
+        "text": "{\n  \"title\": \"The Phoenix Project\",\n  \"author\": \"Gene Kim\",\n  \"isbn\": \"978-0988262591\",\n  \"category\": \"Software Delivery\"\n}"
       },
       "parameters": [],
       "headers": [
         {
           "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {}
+    },
+    {
+      "_id": "req_books_delete",
+      "_type": "request",
+      "parentId": "fld_books",
+      "name": "DELETE /api/books/{id}",
+      "description": "Delete a single book by id.",
+      "url": "{{ _.baseUrl }}/api/books/1",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {}
+    },
+    {
+      "_id": "req_books_search",
+      "_type": "request",
+      "parentId": "fld_books",
+      "name": "GET /api/books/search?author=...",
+      "description": "Search books by author term.",
+      "url": "{{ _.baseUrl }}/api/books/search?author=Fowler",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Accept",
           "value": "application/json"
         }
       ],
@@ -119,6 +202,26 @@
         }
       ],
       "authentication": {}
+    },
+    {
+      "_id": "greq_books_direct_get_by_id",
+      "_type": "grpc_request",
+      "parentId": "fld_books_grpc_direct",
+      "name": "BookService/GetBookById",
+      "description": "Direct gRPC call to BookService.GetBookById using portable proto path src/main/proto/book_service.proto.",
+      "url": "{{ _.grpcUrl }}",
+      "protoFileId": "pf_book_service_proto",
+      "protoMethodName": "/com.enlight.demo.book.BookService/GetBookById",
+      "metadata": [],
+      "body": {
+        "text": "{\"id\": 1}"
+      },
+      "reflectionApi": {
+        "enabled": false,
+        "url": "https://buf.build",
+        "apiKey": "",
+        "module": "buf.build/connectrpc/eliza"
+      }
     }
   ]
 }

@@ -8,9 +8,7 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
-
-    // TODO: Workshop task 2
-    // Add a `category` field, getter/setter, and constructor updates in this model.
+    private String category;
 
     public Book() {
     }
@@ -20,6 +18,14 @@ public class Book {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+    }
+
+    public Book(Long id, String title, String author, String isbn, String category) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.category = category;
     }
 
     public Long getId() {
@@ -52,5 +58,13 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

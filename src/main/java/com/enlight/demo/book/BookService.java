@@ -1,7 +1,7 @@
 package com.enlight.demo.book;
 
-import com.enlight.demo.common.DemoValidationException;
 import com.enlight.demo.common.DemoNotFoundException;
+import com.enlight.demo.common.DemoValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -31,19 +31,29 @@ public class BookService {
         return repository.save(request);
     }
 
-    // TODO: Workshop task 1
-    // Implement delete flow:
-    // - validate id
-    // - call repository.deleteById
-    // - throw DemoNotFoundException when no row is deleted
+    /**
+     * Removes one book row.
+     */
     public void deleteBook(Long id) {
-        throw new UnsupportedOperationException("TODO: Implement Workshop task 1");
+        if (id == null) {
+            throw new DemoValidationException("Book id is required");
+        }
+
+        boolean deleted = repository.deleteById(id);
+        if (!deleted) {
+            throw new DemoNotFoundException("Book id " + id + " was not found");
+        }
     }
 
-    // TODO: Workshop task 3
-    // Implement case-insensitive author search flow.
+    /**
+     * Finds all books where author contains the provided text (case-insensitive).
+     */
     public List<Book> searchBooksByAuthor(String author) {
-        throw new UnsupportedOperationException("TODO: Implement Workshop task 3");
+        if (author == null || author.isBlank()) {
+            throw new DemoValidationException("author query parameter is required");
+        }
+
+        return repository.findByAuthor(author);
     }
 
     private void validate(Book request) {
@@ -58,6 +68,9 @@ public class BookService {
         }
         if (request.getIsbn() == null || request.getIsbn().isBlank()) {
             throw new DemoValidationException("Book ISBN is required");
+        }
+        if (request.getCategory() == null || request.getCategory().isBlank()) {
+            throw new DemoValidationException("Book category is required");
         }
     }
 }
